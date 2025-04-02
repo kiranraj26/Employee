@@ -1,0 +1,15 @@
+<!-- Thymeleaf Template: employee-form.html --><!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Form</title>
+</head>
+<body>
+    <h2>Employee Form</h2>
+    <form th:action="@{/employees/save}" th:object="${employee}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <label>Name: <input type="text" th:field="*{name}"/></label>
+        <label>Location: <input type="text" th:field="*{location}"/></label>
+        <label>Department: <input type="text" th:field="*{department}"/></label>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

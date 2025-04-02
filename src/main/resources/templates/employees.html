@@ -1,0 +1,38 @@
+<!-- Thymeleaf Template: employees.html --><!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee List</title>
+</head>
+<body>
+    <h2>Employee List</h2>
+    <a href="/employees/add">Add Employee</a>
+    <form method="get" action="/employees">
+        <label>Location: <input type="text" name="location" th:value="${location}"/></label>
+        <label>Department: <input type="text" name="department" th:value="${department}"/></label>
+        <button type="submit">Filter</button>
+    </form>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="employee : ${employeePage.content}">
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.name}"></td>
+            <td th:text="${employee.location}"></td>
+            <td th:text="${employee.department}"></td>
+            <td>
+                <a th:href="@{/employees/edit/{id}(id=${employee.id})}">Edit</a>
+                <a th:href="@{/employees/delete/{id}(id=${employee.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <a th:if="${currentPage > 0}" th:href="@{/employees(page=${currentPage - 1}, size=${size}, sortBy=${sortBy}, order=${order}, location=${location}, department=${department})}">Previous</a>
+        <span th:text="'Page ' + (${currentPage + 1}) + ' of ' + ${totalPages}"></span>
+        <a th:if="${currentPage + 1 < totalPages}" th:href="@{/employees(page=${currentPage + 1}, size=${size}, sortBy=${sortBy}, order=${order}, location=${location}, department=${department})}">Next</a>
+    </div>
+</body>
+</html>
